@@ -18,4 +18,11 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="GraphQL\GraphTypes" />
+      <Folder Include="GraphQL\Mutations" />
+      <Folder Include="GraphQL\Queries" />
+      <Folder Include="GraphQL\Schemas" />
+    </ItemGroup>
+
 </Project>

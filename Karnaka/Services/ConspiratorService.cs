@@ -41,18 +41,18 @@ public class ConspiratorService : IConspiratorService
 
     public ConspiratorDto AddConspirator(ConspiratorDto conspirator)
     {
-        Conspirator cons = null;
-        if (_context.Locations.SingleOrDefault(e=>e.Name.Equals(conspirator.Location)) != default)
+        Conspirator cons = _mapper.Map<Conspirator>(conspirator);
+        if (_context.Locations.SingleOrDefault(e=>
+                e.Name.Equals(cons.Location.Name) &&
+                e.Island.Equals(cons.Location.Island) &&
+                e.City.Equals(cons.Location.City)) != default)
         {
-            cons = _context.Conspirators.Add(new Conspirator
-            {
-                Name = conspirator.Name,
-                Location = _context.Locations.SingleOrDefault(e => e.Name.Equals(conspirator.Location))!,
-                PartPlan = new PartPlan()
-                {
-                    Description = conspirator.PartPlan
-                }
-            }).Entity;
+            cons.Location = _context.Locations.SingleOrDefault(e=>
+                e.Name.Equals(cons.Location.Name) &&
+                e.Island.Equals(cons.Location.Island) &&
+                e.City.Equals(cons.Location.City));
+            
+            cons = _context.Conspirators.Add(cons).Entity;
         }
         else
         {
