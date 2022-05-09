@@ -43,7 +43,7 @@ namespace Karnaka.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: true),
                     PartPlanId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -53,7 +53,8 @@ namespace Karnaka.Data.Migrations
                         name: "FK_Conspirators_Locations_LocationId",
                         column: x => x.LocationId,
                         principalTable: "Locations",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Conspirators_PartPlans_PartPlanId",
                         column: x => x.PartPlanId,

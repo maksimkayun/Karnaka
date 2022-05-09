@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Karnaka.Data.Models;
 
@@ -25,6 +26,8 @@ public class Conspirator
     public int Id { get; set; }
     
     public string Name { get; set; }
+    
+    [MaybeNull]
     public Location Location { get; set; }
     public PartPlan PartPlan { get; set; }
 }

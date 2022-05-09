@@ -16,9 +16,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<KarnakaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("KarnakaContext")));
 
-// Добавляем сервис и мапперы
+// Добавляем сервисы и мапперы
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.TryAddScoped<IConspiratorService, ConspiratorService>();
+builder.Services.AddScoped<IConspiratorService, ConspiratorService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 
 var app = builder.Build();

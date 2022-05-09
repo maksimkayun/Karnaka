@@ -18,7 +18,11 @@ public class KarnakaContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Conspirator>()
             .HasOne(e => e.Location).WithMany(e => e.Conspirators)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.SetNull);
+        
+        modelBuilder.Entity<Location>()
+            .HasMany(e => e.Conspirators).WithOne(e => e.Location)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 
     public DbSet<Conspirator> Conspirators { get; set; }

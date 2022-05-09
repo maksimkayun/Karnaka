@@ -16,5 +16,5 @@ public class Location
     public string? City { get; set; }
     public string? Island { get; set; }
     
-    public ICollection<Conspirator> Conspirators { get; set; }
+    public ICollection<Conspirator>? Conspirators { get; set; }
 }

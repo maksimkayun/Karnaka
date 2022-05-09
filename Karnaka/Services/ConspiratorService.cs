@@ -2,7 +2,6 @@
 using Karnaka.Data;
 using Karnaka.Data.Models;
 using Karnaka.Services.Dto;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Karnaka.Services;
