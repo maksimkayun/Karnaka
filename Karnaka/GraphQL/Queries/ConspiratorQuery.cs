@@ -17,7 +17,6 @@ public class ConspiratorQuery : ObjectGraphType
 
         Field<ListGraphType<ConspiratorGraphType>>("conspirators", "Запрос для получения списка всех заговорщиков",
             resolve: GetAllConspirators);
-        
         Field<ConspiratorGraphType>("conspirator", "Запрос для получения данных о заговорщике",
             new QueryArguments(MakeNonNullStringArgument("id", "ID искомого заговорщика")),
             resolve: GetConspirator);

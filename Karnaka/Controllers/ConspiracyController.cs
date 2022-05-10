@@ -12,6 +12,7 @@ public class ConspiracyController : ControllerBase
     private readonly ILogger<ConspiracyController> _logger;
     private readonly IConspiratorService _service;
     private readonly IMapper _mapper;
+    private const int PAGE_SIZE = 3;
 
     public ConspiracyController(ILogger<ConspiracyController> logger, IConspiratorService service, IMapper mapper)
     {
@@ -26,6 +27,15 @@ public class ConspiracyController : ControllerBase
     public ActionResult<IEnumerable<ConspiratorDto>> GetConspirators()
     {
         return Ok(_service.GetAllConspirators());
+    }
+
+    [HttpGet("/hal/conspirators")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<ConspiratorDto>))]
+    [ProducesResponseType(404)]
+    [Produces("application/hal+json")]
+    public IActionResult Get(int index = 0, int count = PAGE_SIZE)
+    {
+        return Ok(_service.GetAllConspirators(index, count));
     }
     
     [HttpGet("{id}")]

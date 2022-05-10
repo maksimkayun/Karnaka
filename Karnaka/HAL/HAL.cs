@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Dynamic;
 using Karnaka.Data.Models;
+using Karnaka.Services.Dto;
 
 namespace Karnaka.HAL;
 
@@ -21,14 +22,15 @@ public static class HAL
         return links;
     }
     
-    public static dynamic ToResource(this Conspirator conspirator) {
+    public static dynamic ToResource(this ConspiratorDto conspirator, int idLocation) {
         var resource =  conspirator.ToDynamic();
+        string location = idLocation != -1 ? idLocation.ToString() : "";
         resource._links = new {
             self = new {
                 href = $"/api/conspirators/{conspirator.Id}"
             },
             location = new {
-                href = $"/api/locations/{conspirator.Location?.Id}"
+                href = $"/api/locations/{location}"
             }
         };
         return resource;
