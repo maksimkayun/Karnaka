@@ -10,14 +10,14 @@ public static class HAL
     public static dynamic PaginateAsDynamic(string baseUrl, int index, int count, int total)
     {
         dynamic links = new ExpandoObject();
-        links.self = new { href = "/api/conspirators" };
+        links.self = new { href = "/hal/conspirators" };
         if (index < total) {
-            links.next = new { href = $"/api/conspirators?index={index + count}" };
-            links.final = new { href = $"{baseUrl}?index={total - (total % count)}&count={count}" };
+            links.next = new { href = $"/hal/conspirators?index={index + count}" };
+            links.final = new { href = $"/hal/conspirators?index={total - (total % count)}&count={count}" };
         }
         if (index > 0) {
-            links.prev = new { href = $"/api/conspirators?index={index - count}" };
-            links.first = new { href = $"/api/conspirators?index=0" };
+            links.prev = new { href = $"/hal/conspirators?index={index - count}" };
+            links.first = new { href = $"/hal/conspirators?index=0" };
         }
         return links;
     }
@@ -27,10 +27,10 @@ public static class HAL
         string location = idLocation != -1 ? idLocation.ToString() : "";
         resource._links = new {
             self = new {
-                href = $"/api/conspirators/{conspirator.Id}"
+                href = $"/hal/conspirators/{conspirator.Id}"
             },
             location = new {
-                href = $"/api/locations/{location}"
+                href = $"/hal/conspirators/{location}"
             }
         };
         return resource;
