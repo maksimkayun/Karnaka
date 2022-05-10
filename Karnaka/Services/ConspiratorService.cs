@@ -47,7 +47,7 @@ public class ConspiratorService : IConspiratorService
             persons.Include(e=>e.PartPlan)
             .Select(v => v)).Select(v => GetResource(v, dictLocations));
         int total = _context.Conspirators.Count();
-        var _links = HAL.HAL.PaginateAsDynamic("/api/conspirators", index, count, total);
+        var _links = HAL.HAL.PaginateAsDynamic("/hal/conspirators", index, count, total);
         IEnumerable<dynamic> result = new[]
         {
             _links,

@@ -10,14 +10,14 @@ public static class HAL
     public static dynamic PaginateAsDynamic(string baseUrl, int index, int count, int total)
     {
         dynamic links = new ExpandoObject();
-        links.self = new { href = "/hal/conspirators" };
+        links.self = new { href = $"{baseUrl}" };
         if (index < total) {
-            links.next = new { href = $"/hal/conspirators?index={index + count}" };
-            links.final = new { href = $"/hal/conspirators?index={total - (total % count)}&count={count}" };
+            links.next = new { href = $"{baseUrl}?index={index + count}" };
+            links.final = new { href = $"{baseUrl}?index={total - (total % count)}&count={count}" };
         }
         if (index > 0) {
-            links.prev = new { href = $"/hal/conspirators?index={index - count}" };
-            links.first = new { href = $"/hal/conspirators?index=0" };
+            links.prev = new { href = $"{baseUrl}?index={index - count}" };
+            links.first = new { href = $"{baseUrl}?index=0" };
         }
         return links;
     }
