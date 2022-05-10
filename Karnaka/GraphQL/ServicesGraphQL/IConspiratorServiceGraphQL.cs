@@ -10,4 +10,6 @@ public interface IConspiratorServiceGraphQL
     Conspirator UpdateConspirator(Conspirator conspirator, int id);
     Conspirator AddConspirator(ConspiratorDto conspirator);
     Conspirator DeleteConspirator(int id);
+    
+    Conspirator GetByName(string name);
 }

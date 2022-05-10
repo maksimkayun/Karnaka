@@ -3,6 +3,7 @@ using GraphQL.Types;
 using Karnaka.Data.Models;
 using Karnaka.GraphQL.GraphTypes;
 using Karnaka.GraphQL.ServicesGraphQL;
+using Karnaka.Services.Dto;
 
 namespace Karnaka.GraphQL.Queries;
 
@@ -20,8 +21,17 @@ public class ConspiratorQuery : ObjectGraphType
         Field<ConspiratorGraphType>("conspirator", "Запрос для получения данных о заговорщике",
             new QueryArguments(MakeNonNullStringArgument("id", "ID искомого заговорщика")),
             resolve: GetConspirator);
+        Field<ConspiratorGraphType>("conspiratorByName", "Запрос для получения данных о заговорщике по имени",
+            new QueryArguments(MakeNonNullStringArgument("name", "ID искомого заговорщика")),
+            resolve: GetConspiratorByName);
     }
-    
+
+    private Conspirator GetConspiratorByName(IResolveFieldContext<object?> arg)
+    {
+        var name = arg.GetArgument<string>("name");
+        return _service.GetByName(name);
+    }
+
     private QueryArgument MakeNonNullStringArgument(string name, string description) {
         return new QueryArgument<NonNullGraphType<StringGraphType>> {
             Name = name, Description = description

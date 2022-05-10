@@ -18,6 +18,7 @@ public class ConspiratorServiceGraphQL : IConspiratorServiceGraphQL
 
     public Conspirator GetConspirator(int id)
     {
+        
         return _context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.Location!.Conspirators)
             .Include(e=>e.PartPlan).SingleOrDefault(e => e.Id == id)!;
@@ -25,6 +26,7 @@ public class ConspiratorServiceGraphQL : IConspiratorServiceGraphQL
 
     public List<Conspirator> GetAllConspirators()
     {
+        
         return _context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.Location!.Conspirators)
             .Include(e=>e.PartPlan).Select(e => e).ToList();
@@ -43,5 +45,14 @@ public class ConspiratorServiceGraphQL : IConspiratorServiceGraphQL
     public Conspirator DeleteConspirator(int id)
     {
         throw new NotImplementedException();
+    }
+
+    public Conspirator GetByName(string name)
+    {
+        
+        return _context.Conspirators.Include(e => e.Location)
+            .Include(e => e.Location)
+            .Include(e => e.PartPlan)
+            .SingleOrDefault(e => e.Name.Equals(name))!;
     }
 }
