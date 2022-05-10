@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Karnaka.Data;
+using Karnaka.Data.Helpers;
 using Karnaka.Data.Models;
+using Karnaka.HAL;
 using Karnaka.Services.Dto;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +28,22 @@ public class ConspiratorService : IConspiratorService
     {
         return _mapper.Map<ICollection<ConspiratorDto>>(_context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.PartPlan).Select(e => e));
+    }
+
+    public IEnumerable<dynamic> GetAllConspirators(int index, int count)
+    {
+        var items = _context.Conspirators.Include(e=>e.Location).Include(e=>e.PartPlan).Select(e => e).Skip(index).Take(count).Select(v => v.ToResource());
+        int total = _context.Conspirators.Count();
+        var _links = HAL.HAL.PaginateAsDynamic("/api/conspirators", index, count, total);
+        IEnumerable<dynamic> result = new[]
+        {
+            _links,
+            count,
+            total,
+            index,
+            items
+        };
+        return result;
     }
 
     public ConspiratorDto UpdateConspirator(ConspiratorDto conspirator, int id)
