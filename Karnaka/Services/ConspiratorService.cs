@@ -43,10 +43,8 @@ public class ConspiratorService : IConspiratorService
         var dictLocations = 
             locations.ToDictionary(key => key.Id, value=> GetFullNameLocation(value));
 
-        var items = _mapper.Map<IEnumerable<ConspiratorDto>>(_context.Conspirators
-            .Include(e => e.Location)
-            .Include(e => e.PartPlan)
-            .Select(e => e).Skip(index).Take(count)
+        var items = _mapper.Map<IEnumerable<ConspiratorDto>>(
+            persons.Include(e=>e.PartPlan)
             .Select(v => v)).Select(v => GetResource(v, dictLocations));
         int total = _context.Conspirators.Count();
         var _links = HAL.HAL.PaginateAsDynamic("/api/conspirators", index, count, total);
