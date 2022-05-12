@@ -3,7 +3,7 @@ using Karnaka.Data.Models;
 
 namespace Karnaka.GraphQL.GraphTypes;
 
-public sealed class ConspiratorGraphType : ObjectGraphType<Conspirator>
+public class ConspiratorGraphType : ObjectGraphType<Conspirator>
 {
     public ConspiratorGraphType()
     {
@@ -14,6 +14,6 @@ public sealed class ConspiratorGraphType : ObjectGraphType<Conspirator>
             .Description("Локация заговорщика (где его можно встретить");
         Field(c => c.PartPlan, false, type: typeof(PartPlanGraphType))
             .Description("Часть плана заговора, исполняемая этим заговорщиком");
-
+        
     }
 }

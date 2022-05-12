@@ -18,18 +18,17 @@ public class ConspiratorServiceGraphQL : IConspiratorServiceGraphQL
 
     public Conspirator GetConspirator(int id)
     {
-        
         return _context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.Location!.Conspirators)
             .Include(e=>e.PartPlan).SingleOrDefault(e => e.Id == id)!;
     }
 
-    public List<Conspirator> GetAllConspirators()
+    public IQueryable<Conspirator> GetAllConspirators()
     {
         
         return _context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.Location!.Conspirators)
-            .Include(e=>e.PartPlan).Select(e => e).ToList();
+            .Include(e=>e.PartPlan).Select(e => e);
     }
 
     public Conspirator UpdateConspirator(Conspirator conspirator, int id)

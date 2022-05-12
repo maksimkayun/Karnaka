@@ -1,4 +1,5 @@
-﻿using GraphQL.Types;
+﻿using AutoMapper;
+using GraphQL.Types;
 using Karnaka.Data;
 using Karnaka.GraphQL.Mutations;
 using Karnaka.GraphQL.Queries;
@@ -9,9 +10,9 @@ namespace Karnaka.GraphQL.Schemas;
 
 public class ConspiratorSchema : Schema
 {
-    public ConspiratorSchema(IConspiratorServiceGraphQL service)
+    public ConspiratorSchema(IMapper mapper,IConspiratorServiceGraphQL service)
     {
-        Query = new ConspiratorQuery(service);
+        Query = new ConspiratorQuery(mapper, service);
         Mutation = new ConspiratorMutation(service);
     }
 }

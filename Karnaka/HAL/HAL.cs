@@ -22,6 +22,28 @@ public static class HAL
         return links;
     }
     
+    public static Dictionary<string, string> PaginateAsDynamicQL(string baseUrl, int index, int count, int total)
+    {
+        Dictionary<string, string> links = new Dictionary<string, string>();
+        links.Add("self", $"{baseUrl}");
+        
+        //links.self = new { href = $"{baseUrl}" };
+        if (index < total) {
+            links.Add("next", $"{baseUrl}?index={index + count}");
+            links.Add("final", $"{baseUrl}?index={total - (total % count)}&count={count}");
+
+            //links.next = new { href = $"{baseUrl}?index={index + count}" };
+            //links.final = new { href = $"{baseUrl}?index={total - (total % count)}&count={count}" };
+        }
+        if (index > 0) {
+            links.Add("prev", $"{baseUrl}?index={index - count}");
+            links.Add("first", $"{baseUrl}?index=0");
+            //links.prev = new { href = $"{baseUrl}?index={index - count}" };
+            //links.first = new { href = $"{baseUrl}?index=0" };
+        }
+        return links;
+    }
+
     public static dynamic ToResource(this ConspiratorDto conspirator, int idLocation) {
         var resource =  conspirator.ToDynamic();
         string location = idLocation != -1 ? idLocation.ToString() : "";
