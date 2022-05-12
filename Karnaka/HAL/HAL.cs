@@ -30,7 +30,7 @@ public static class HAL
                 href = $"/hal/conspirators/{conspirator.Id}"
             },
             location = new {
-                href = $"/hal/conspirators/{location}"
+                href = $"/hal/locations/{location}"
             }
         };
         return resource;

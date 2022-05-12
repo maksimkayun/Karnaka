@@ -45,6 +45,14 @@ public class ConspiracyController : ControllerBase
     {
         return Ok(_service.GetConspirator(id));
     }
+    
+    [HttpGet("/hal/conspirators/{id}")]
+    [ProducesResponseType(200, Type = typeof(ConspiratorDto))]
+    [ProducesResponseType(404)]
+    public ActionResult<ConspiratorDto> GetConspiratorHal(int id)
+    {
+        return Ok(_service.GetConspiratorHal(id));
+    }
 
     [HttpPost]
     public ActionResult<ConspiratorDto> PostConspirator(ConspiratorDto conspirator)

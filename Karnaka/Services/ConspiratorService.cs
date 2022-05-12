@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EasyNetQ.Internals;
 using Karnaka.Data;
 using Karnaka.Data.Helpers;
 using Karnaka.Data.Models;
@@ -18,7 +19,8 @@ public class ConspiratorService : IConspiratorService
         _context = context;
         _mapper = mapper;
     }
-
+    
+    [Obsolete]
     public ConspiratorDto GetConspirator(int id)
     {
         return _mapper.Map<ConspiratorDto>(_context.Conspirators.Include(e => e.Location)
@@ -36,9 +38,12 @@ public class ConspiratorService : IConspiratorService
         var persons = _context.Conspirators
             .Include(e => e.Location)
             .Select(e => e).Skip(index).Take(count);
-        var locations = persons
-            .Where(e=>e.Location != default)
-            .Select(v => v.Location);
+        
+        List<Location> locations = new List<Location>();
+        persons.Where(e => e.Location != default)
+            .Select(v => v)
+            .ToList()
+            .ForEach(e => locations.Add(e.Location));
 
         var dictLocations = 
             locations.ToDictionary(key => key.Id, value=> GetFullNameLocation(value));
@@ -59,13 +64,42 @@ public class ConspiratorService : IConspiratorService
         return result;
     }
 
+    public IEnumerable<dynamic> GetConspiratorHal(int id)
+    {
+        var person = _context.Conspirators
+            .Include(e=>e.Location)
+            .Include(e=>e.PartPlan)
+            .SingleOrDefault(e => e.Id == id);
+        if (person == default)
+        {
+            throw new NullReferenceException("Запрашиваемый объект в базе не найден");
+        }
+
+        var location = _context.Locations.Include(e=>e.Conspirators)
+            .Where(e=>e.Conspirators != default).SingleOrDefault(e => e.Conspirators.Contains(person));
+
+        Dictionary<int, string> dictLocations = new Dictionary<int, string>();
+        if (location != default)
+        {
+            dictLocations.Add(location.Id, GetFullNameLocation(location));
+        }
+
+        var item = GetResource(_mapper.Map<ConspiratorDto>(person), dictLocations); 
+        IEnumerable<dynamic> result = new[]
+        {
+            id,
+            item
+        };
+        return result;
+    }
+
     private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, string> locations)
     {
         if (conspiratorDto.Location != default)
         {
             try
             {
-                var id = locations.First(e => e.Value.Equals(conspiratorDto.Location)).Key;
+                var id = locations.First(e => e.Value.Trim().Equals(conspiratorDto.Location.Trim())).Key;
                 return conspiratorDto.ToResource(id);
             }
             catch (Exception e)
@@ -122,4 +156,5 @@ public class ConspiratorService : IConspiratorService
         _context.SaveChanges();
         return _mapper.Map<ConspiratorDto>(cons);
     }
+
 }
