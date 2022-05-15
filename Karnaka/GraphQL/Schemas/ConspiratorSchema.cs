@@ -10,9 +10,9 @@ namespace Karnaka.GraphQL.Schemas;
 
 public class ConspiratorSchema : Schema
 {
-    public ConspiratorSchema(IMapper mapper,IConspiratorServiceGraphQL service)
+    public ConspiratorSchema(IConspiratorServiceGraphQL service)
     {
-        Query = new ConspiratorQuery(mapper, service);
+        Query = new ConspiratorQuery(service);
         Mutation = new ConspiratorMutation(service);
     }
 }

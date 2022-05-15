@@ -25,7 +25,6 @@ public class ConspiratorServiceGraphQL : IConspiratorServiceGraphQL
 
     public IQueryable<Conspirator> GetAllConspirators()
     {
-        
         return _context.Conspirators.Include(e=>e.Location)
             .Include(e=>e.Location!.Conspirators)
             .Include(e=>e.PartPlan).Select(e => e);

@@ -12,12 +12,10 @@ namespace Karnaka.GraphQL.Queries;
 public class ConspiratorQuery : ObjectGraphType
 {
     private readonly IConspiratorServiceGraphQL _service;
-    private readonly IMapper _mapper;
 
-    public ConspiratorQuery(IMapper mapper, IConspiratorServiceGraphQL service)
+    public ConspiratorQuery(IConspiratorServiceGraphQL service)
     {
         _service = service;
-        _mapper = mapper;
 
         Field<ListGraphType<ConspiratorGraphType>>("conspirators", "Запрос для получения списка всех заговорщиков",
             resolve: GetAllConspirators);
@@ -60,8 +58,7 @@ public class ConspiratorQuery : ObjectGraphType
 
     private IEnumerable<Conspirator> GetAllConspirators(IResolveFieldContext<object?> arg)
     {
-        var t = _service.GetAllConspirators();
-        return t;
+        return _service.GetAllConspirators();
     }
     
     private Conspirator GetConspirator(IResolveFieldContext<object?> arg)
