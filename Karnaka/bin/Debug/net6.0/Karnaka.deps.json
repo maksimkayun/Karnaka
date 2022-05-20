@@ -25,6 +25,7 @@
           "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Swashbuckle.AspNetCore": "6.3.1",
+          "Unchase.Swashbuckle.AspNetCore.Extensions": "2.6.12",
           "System.Reactive.Reference": "4.4.0.0"
         },
         "runtime": {
@@ -1477,6 +1478,17 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "Unchase.Swashbuckle.AspNetCore.Extensions/2.6.12": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.3.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Unchase.Swashbuckle.AspNetCore.Extensions.dll": {
+            "assemblyVersion": "2.6.12.0",
+            "fileVersion": "2.6.12.0"
+          }
+        }
+      },
       "System.Reactive.Reference/4.4.0.0": {
         "runtime": {
           "System.Reactive.dll": {
@@ -2598,6 +2610,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Unchase.Swashbuckle.AspNetCore.Extensions/2.6.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-na7B3cmNK8L8YuxVl/W9YeZn+jrDz9LlmZa1ZcosKtHQYFOWAnPta2njwa91UyeJzMGjdHoIVE74Q1TGxuUHug==",
+      "path": "unchase.swashbuckle.aspnetcore.extensions/2.6.12",
+      "hashPath": "unchase.swashbuckle.aspnetcore.extensions.2.6.12.nupkg.sha512"
     },
     "System.Reactive.Reference/4.4.0.0": {
       "type": "reference",

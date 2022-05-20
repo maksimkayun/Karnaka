@@ -107,6 +107,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.1, )"
+            },
+            "Unchase.Swashbuckle.AspNetCore.Extensions": {
+              "target": "Package",
+              "version": "[2.6.12, )"
             }
           },
           "imports": [

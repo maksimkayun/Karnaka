@@ -87,3 +87,4 @@ C:\Users\maksk\Desktop\GIT\Karnaka\Karnaka\bin\Debug\net6.0\Microsoft.AspNetCore
 C:\Users\maksk\Desktop\GIT\Karnaka\Karnaka\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\maksk\Desktop\GIT\Karnaka\Karnaka\bin\Debug\net6.0\EasyNetQ.dll
 C:\Users\maksk\Desktop\GIT\Karnaka\Karnaka\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\Users\maksk\Desktop\GIT\Karnaka\Karnaka\bin\Debug\net6.0\Unchase.Swashbuckle.AspNetCore.Extensions.dll

@@ -2339,6 +2339,18 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Unchase.Swashbuckle.AspNetCore.Extensions/2.6.12": {
+        "type": "package",
+        "dependencies": {
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.2.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Unchase.Swashbuckle.AspNetCore.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Unchase.Swashbuckle.AspNetCore.Extensions.dll": {}
+        }
       }
     }
   },
@@ -7773,6 +7785,19 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Unchase.Swashbuckle.AspNetCore.Extensions/2.6.12": {
+      "sha512": "na7B3cmNK8L8YuxVl/W9YeZn+jrDz9LlmZa1ZcosKtHQYFOWAnPta2njwa91UyeJzMGjdHoIVE74Q1TGxuUHug==",
+      "type": "package",
+      "path": "unchase.swashbuckle.aspnetcore.extensions/2.6.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Unchase.Swashbuckle.AspNetCore.Extensions.dll",
+        "lib/netstandard2.0/Unchase.Swashbuckle.AspNetCore.Extensions.xml",
+        "unchase.swashbuckle.aspnetcore.extensions.2.6.12.nupkg.sha512",
+        "unchase.swashbuckle.aspnetcore.extensions.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -7793,7 +7818,8 @@
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 6.0.1",
       "Microsoft.Extensions.Configuration.FileExtensions >= 6.0.0",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0",
-      "Swashbuckle.AspNetCore >= 6.3.1"
+      "Swashbuckle.AspNetCore >= 6.3.1",
+      "Unchase.Swashbuckle.AspNetCore.Extensions >= 2.6.12"
     ]
   },
   "packageFolders": {
@@ -7902,6 +7928,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.3.1, )"
+          },
+          "Unchase.Swashbuckle.AspNetCore.Extensions": {
+            "target": "Package",
+            "version": "[2.6.12, )"
           }
         },
         "imports": [

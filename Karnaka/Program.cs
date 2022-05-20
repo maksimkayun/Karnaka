@@ -6,6 +6,9 @@ using Karnaka.GraphQL.Schemas;
 using Karnaka.GraphQL.ServicesGraphQL;
 using Karnaka.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +21,13 @@ builder.Services.AddScoped<IConspiratorServiceGraphQL, ConspiratorServiceGraphQL
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Мой API", Version = "v1"});
+});
 
 // Добавляем GraphQL
-builder.Services.AddScoped<ISchema,ConspiratorSchema>();
+builder.Services.AddScoped<ISchema, ConspiratorSchema>();
 builder.Services.AddGraphQL(options => { options.EnableMetrics = true; }).AddSystemTextJson();
 
 // + DB контекст
@@ -40,7 +46,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
     app.UseGraphQLAltair();
     app.UseDeveloperExceptionPage();
 }

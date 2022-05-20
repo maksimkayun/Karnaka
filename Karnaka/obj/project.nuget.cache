@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5UE91sQY/9zB9+DqAuJnKsv7i3osAOVAlnGc1fS1DZObQtavlFD3mx5Qv+bBoGDmAQu9ha32yfaRhbnrKKwigw==",
+  "dgSpecHash": "3Al072Idk4h8t9uWh0FL+qqQRvwa3R+69DRnZDKEgJzPwiYxx+MCvKUmcTylTstm6pYRD4NyrwKvdPZ1PnCVug==",
   "success": true,
   "projectFilePath": "C:\\Users\\maksk\\Desktop\\GIT\\Karnaka\\Karnaka\\Karnaka.csproj",
   "expectedPackageFiles": [
@@ -161,7 +161,8 @@
     "C:\\Users\\maksk\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\maksk\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\maksk\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\maksk\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\maksk\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\maksk\\.nuget\\packages\\unchase.swashbuckle.aspnetcore.extensions\\2.6.12\\unchase.swashbuckle.aspnetcore.extensions.2.6.12.nupkg.sha512"
   ],
   "logs": []
 }
