@@ -102,7 +102,7 @@ namespace Org.OpenAPITools.Client
         {
             Proxy = null;
             UserAgent = "OpenAPI-Generator/1.0.0/csharp";
-            BasePath = "http://localhost:5228";
+            BasePath = "http://localhost";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();

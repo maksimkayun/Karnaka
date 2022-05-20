@@ -38,7 +38,9 @@ namespace Org.OpenAPITools.Test.Api
 
         public ConspiracyApiTests()
         {
-            instance = new ConspiracyApi();
+            Configuration config = new Configuration();
+            config.BasePath = "https://localhost:7228";
+            this.instance = new ConspiracyApi(config);
         }
 
         public void Dispose()
@@ -85,10 +87,8 @@ namespace Org.OpenAPITools.Test.Api
         [Fact]
         public void ApiConspiratorsIdGetTest()
         {
-            // TODO uncomment below to test the method and replace null with proper value
             int id = 5;
-            var inst = new ConspiracyApi();
-            var response = inst.ApiConspiratorsIdGet(id);
+            var response = instance.ApiConspiratorsIdGet(id);
             Assert.IsType<ConspiratorDto>(response);
         }
 
@@ -98,10 +98,15 @@ namespace Org.OpenAPITools.Test.Api
         [Fact]
         public void ApiConspiratorsPostTest()
         {
-            // TODO uncomment below to test the method and replace null with proper value
-            //ConspiratorDto conspiratorDto = null;
-            //var response = instance.ApiConspiratorsPost(conspiratorDto);
-            //Assert.IsType<ConspiratorDto>(response);
+            ConspiratorDto conspiratorDto = new ConspiratorDto()
+            {
+                Name = "Test",
+                PartPlan = "TestPlan",
+                Location = "Test, Test, Test"
+            };
+            var response = instance.ApiConspiratorsPost(conspiratorDto);
+            Assert.IsType<ConspiratorDto>(response);
+            var rm = instance.ApiConspiratorsIdDelete((int) response.Id);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 Org.OpenAPITools.sln
 README.md
 appveyor.yml
@@ -9,11 +8,6 @@ docs/LocationApi.md
 docs/LocationDto.md
 docs/ProblemDetails.md
 git_push.sh
-src/Org.OpenAPITools.Test/Api/ConspiracyApiTests.cs
-src/Org.OpenAPITools.Test/Api/LocationApiTests.cs
-src/Org.OpenAPITools.Test/Model/ConspiratorDtoTests.cs
-src/Org.OpenAPITools.Test/Model/LocationDtoTests.cs
-src/Org.OpenAPITools.Test/Model/ProblemDetailsTests.cs
 src/Org.OpenAPITools.Test/Org.OpenAPITools.Test.csproj
 src/Org.OpenAPITools/Api/ConspiracyApi.cs
 src/Org.OpenAPITools/Api/LocationApi.cs
