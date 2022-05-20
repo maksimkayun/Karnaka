@@ -18,6 +18,8 @@ using Xunit;
 
 using Org.OpenAPITools.Client;
 using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Model;
+
 // uncomment below to import models
 //using Org.OpenAPITools.Model;
 
@@ -84,9 +86,10 @@ namespace Org.OpenAPITools.Test.Api
         public void ApiConspiratorsIdGetTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
-            //int id = null;
-            //var response = instance.ApiConspiratorsIdGet(id);
-            //Assert.IsType<ConspiratorDto>(response);
+            int id = 5;
+            var inst = new ConspiracyApi();
+            var response = inst.ApiConspiratorsIdGet(id);
+            Assert.IsType<ConspiratorDto>(response);
         }
 
         /// <summary>
