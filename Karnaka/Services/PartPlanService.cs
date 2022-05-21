@@ -39,14 +39,43 @@ public class PartPlanService : IPartPlanService
         };
     }
 
-    public ICollection<PartPlanDto> GetAllPartsPlan()
+    public ICollection<dynamic> GetAllPartsPlan(int index, int count)
     {
-        return _mapper.Map<ICollection<PartPlanDto>>(_context.PartPlans.Select(e => e));
+        Dictionary<int, int> dictPersons = _context.Conspirators
+            .Include(e => e.PartPlan)
+            .Where(e => e.PartPlan != default).Select(e => e)
+            .ToDictionary(key => key.PartPlan.Id, value => value.Id);
+        var items = _mapper.Map<ICollection<PartPlanDto>>(_context.PartPlans.Select(e => e).Skip(index).Take(count))
+            .Select(e => GetRecourse(e, dictPersons));
+        var total = _context.PartPlans.Count();
+        var _links = HAL.HAL.PaginateAsDynamic("/hal/partsplan", index, count, total);
+        return new[]
+        {
+            _links,
+            count,
+            total,
+            index,
+            items
+        };
     }
 
-    public ICollection<PartPlanDto> GetAllPartsPlan(int index, int count)
+    private dynamic GetRecourse(PartPlanDto plan, Dictionary<int, int> dictPersons)
     {
-        throw new NotImplementedException();
+
+        var idPerson = -1;
+        if (dictPersons.Keys.FirstOrDefault(e=>e == plan.Id) != default)
+        {
+            idPerson = dictPersons.FirstOrDefault(e => e.Key == plan.Id).Value;
+        }
+        try
+        {
+            return plan.ToResource(idPerson);
+        }
+        catch (Exception e)
+        {
+        }
+
+        return null;
     }
 
     public PartPlanDto UpdatePartPlan(PartPlanDto plan, int id)
