@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Dynamic;
+using System.Text;
 using Karnaka.Data.Models;
 using Karnaka.Services.Dto;
 
@@ -44,15 +45,35 @@ public static class HAL
         return links;
     }
 
-    public static dynamic ToResource(this ConspiratorDto conspirator, int idLocation) {
+    public static dynamic ToResource(this ConspiratorDto conspirator, int idLocation, int idPlan = -1) {
         var resource =  conspirator.ToDynamic();
         string location = idLocation != -1 ? idLocation.ToString() : "";
+        string plan = idPlan != -1 ? idPlan.ToString() : "";
         resource._links = new {
             self = new {
                 href = $"/hal/conspirators/{conspirator.Id}"
             },
             location = new {
-                href = $"/hal/locations/{location}"
+                href = $"/api/locations/{location}"
+            },
+            partPlan = new
+            {
+                href = $"/hal/partsplan/{plan}"
+            }
+        };
+        return resource;
+    }
+    
+    public static dynamic ToResource(this PartPlanDto plan, int idPerson = -1) {
+        var resource =  plan.ToDynamic();
+        var person = idPerson != -1 ? idPerson.ToString() : "";
+       
+        resource._links = new {
+            self = new {
+                href = $"/hal/partsplan/{plan.Id}"
+            },
+            conspirator = new {
+                href = $"/hal/conspirators/{person}"
             }
         };
         return resource;

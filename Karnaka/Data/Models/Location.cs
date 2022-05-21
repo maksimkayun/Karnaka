@@ -9,6 +9,13 @@ public class Location
         Conspirators = new HashSet<Conspirator>();
     }
 
+    public Location(string? fullnamae)
+    {
+        Name = fullnamae.Split(", ")[2];
+        City = fullnamae.Split(", ")[1];
+        Island = fullnamae.Split(", ")[0];
+    }
+
     [Key]
     public int Id { get; set; }
     

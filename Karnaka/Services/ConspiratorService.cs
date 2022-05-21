@@ -37,6 +37,7 @@ public class ConspiratorService : IConspiratorService
     {
         var persons = _context.Conspirators
             .Include(e => e.Location)
+            .Include(e=>e.PartPlan)
             .Select(e => e).Skip(index).Take(count);
         
         List<Location> locations = new List<Location>();
@@ -45,12 +46,15 @@ public class ConspiratorService : IConspiratorService
             .ToList()
             .ForEach(e => locations.Add(e.Location));
 
+        Dictionary<int, int> plans = persons.Where(e => e.PartPlan != default).Select(e => e)
+            .ToDictionary(key => key.Id, value => value.PartPlan.Id);
+
         var dictLocations = 
             locations.ToDictionary(key => key.Id, value=> GetFullNameLocation(value));
 
         var items = _mapper.Map<IEnumerable<ConspiratorDto>>(
             persons.Include(e=>e.PartPlan)
-            .Select(v => v)).Select(v => GetResource(v, dictLocations));
+            .Select(v => v)).Select(v => GetResource(v, dictLocations, plans));
         int total = _context.Conspirators.Count();
         var _links = HAL.HAL.PaginateAsDynamic("/hal/conspirators", index, count, total);
         IEnumerable<dynamic> result = new[]
@@ -84,7 +88,12 @@ public class ConspiratorService : IConspiratorService
             dictLocations.Add(location.Id, GetFullNameLocation(location));
         }
 
-        var item = GetResource(_mapper.Map<ConspiratorDto>(person), dictLocations); 
+        Dictionary<int, int> dictPartsPlan = new Dictionary<int, int>();
+        if (person.PartPlan != default)
+        {
+            dictPartsPlan.Add(person.Id, person.PartPlan.Id);
+        }
+        var item = GetResource(_mapper.Map<ConspiratorDto>(person), dictLocations, dictPartsPlan); 
         IEnumerable<dynamic> result = new[]
         {
             id,
@@ -93,14 +102,19 @@ public class ConspiratorService : IConspiratorService
         return result;
     }
 
-    private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, string> locations)
+    private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, string> locations, Dictionary<int, int> partsPlan)
     {
         if (conspiratorDto.Location != default)
         {
             try
             {
-                var id = locations.First(e => e.Value.Trim().Equals(conspiratorDto.Location.Trim())).Key;
-                return conspiratorDto.ToResource(id);
+                var idlocation = locations.First(e => e.Value.Trim().Equals(conspiratorDto.Location.Trim())).Key;
+                var idplan = -1;
+                if (conspiratorDto.PartPlan != default)
+                {
+                    idplan = partsPlan.First(e => e.Key.Equals(conspiratorDto.Id)).Value;
+                }
+                return conspiratorDto.ToResource(idlocation, idplan);
             }
             catch (Exception e)
             {

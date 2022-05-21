@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karnaka", "Karnaka\Karnaka.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NswagCode", "NswagCode\NswagCode.csproj", "{0A1AD832-AFA2-4EDA-84AA-027D34DCAD2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.OpenAPITools", "gen\src\Org.OpenAPITools\Org.OpenAPITools.csproj", "{7CA735A0-A183-4867-9AA6-769B9A9C06A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.OpenAPITools.Test", "gen\src\Org.OpenAPITools.Test\Org.OpenAPITools.Test.csproj", "{AC690FE5-78F0-4650-9C93-4FE6DE2D829E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{0A1AD832-AFA2-4EDA-84AA-027D34DCAD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A1AD832-AFA2-4EDA-84AA-027D34DCAD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A1AD832-AFA2-4EDA-84AA-027D34DCAD2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA735A0-A183-4867-9AA6-769B9A9C06A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA735A0-A183-4867-9AA6-769B9A9C06A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA735A0-A183-4867-9AA6-769B9A9C06A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA735A0-A183-4867-9AA6-769B9A9C06A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC690FE5-78F0-4650-9C93-4FE6DE2D829E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC690FE5-78F0-4650-9C93-4FE6DE2D829E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC690FE5-78F0-4650-9C93-4FE6DE2D829E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC690FE5-78F0-4650-9C93-4FE6DE2D829E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

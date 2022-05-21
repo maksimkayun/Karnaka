@@ -38,6 +38,7 @@ builder.Services.AddDbContext<KarnakaContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IConspiratorService, ConspiratorService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IPartPlanService, PartPlanService>();
 builder.Services.AddScoped<KarnakaContext, KarnakaContext>();
 
 
