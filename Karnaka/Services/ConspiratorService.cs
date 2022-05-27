@@ -40,17 +40,11 @@ public class ConspiratorService : IConspiratorService
             .Include(e=>e.PartPlan)
             .Select(e => e).Skip(index).Take(count);
         
-        List<Location> locations = new List<Location>();
-        persons.Where(e => e.Location != default)
-            .Select(v => v)
-            .ToList()
-            .ForEach(e => locations.Add(e.Location));
-
         Dictionary<int, int> plans = persons.Where(e => e.PartPlan != default).Select(e => e)
             .ToDictionary(key => key.Id, value => value.PartPlan.Id);
 
-        var dictLocations = 
-            locations.ToDictionary(key => key.Id, value=> GetFullNameLocation(value));
+        var dictLocations = persons.Where(e => e.Location != default).Select(e => e)
+            .ToDictionary(key => key.Id, value => value.Location.Id);
 
         var items = _mapper.Map<IEnumerable<ConspiratorDto>>(
             persons.Include(e=>e.PartPlan)
@@ -82,10 +76,10 @@ public class ConspiratorService : IConspiratorService
         var location = _context.Locations.Include(e=>e.Conspirators)
             .Where(e=>e.Conspirators != default).SingleOrDefault(e => e.Conspirators.Contains(person));
 
-        Dictionary<int, string> dictLocations = new Dictionary<int, string>();
+        Dictionary<int, int> dictLocations = new Dictionary<int, int>();
         if (location != default)
         {
-            dictLocations.Add(location.Id, GetFullNameLocation(location));
+            dictLocations.Add(person.Id, location.Id);
         }
 
         Dictionary<int, int> dictPartsPlan = new Dictionary<int, int>();
@@ -102,14 +96,19 @@ public class ConspiratorService : IConspiratorService
         return result;
     }
 
-    private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, string> locations, Dictionary<int, int> partsPlan)
+    private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, int> locations, Dictionary<int, int> partsPlan)
     {
+        var idplan = -1;
+        if (conspiratorDto.PartPlan != default)
+        {
+            idplan = partsPlan.First(e => e.Key.Equals(conspiratorDto.Id)).Value;
+        }
         if (conspiratorDto.Location != default)
         {
             try
             {
-                var idlocation = locations.First(e => e.Value.Trim().Equals(conspiratorDto.Location.Trim())).Key;
-                var idplan = -1;
+                var idlocation = locations.First(e => e.Key == conspiratorDto.Id).Value;
+                
                 if (conspiratorDto.PartPlan != default)
                 {
                     idplan = partsPlan.First(e => e.Key.Equals(conspiratorDto.Id)).Value;
@@ -120,8 +119,7 @@ public class ConspiratorService : IConspiratorService
             {
             }
         }
-
-        return conspiratorDto.ToResource(-1);
+        return conspiratorDto.ToResource(-1, idplan);
     }
 
     private string GetFullNameLocation(Location location)
