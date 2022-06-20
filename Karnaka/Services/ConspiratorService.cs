@@ -3,6 +3,7 @@ using EasyNetQ.Internals;
 using Karnaka.Data;
 using Karnaka.Data.Helpers;
 using Karnaka.Data.Models;
+using Karnaka.ErrorsSupport;
 using Karnaka.HAL;
 using Karnaka.Services.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -64,36 +65,49 @@ public class ConspiratorService : IConspiratorService
 
     public IEnumerable<dynamic> GetConspiratorHal(int id)
     {
-        var person = _context.Conspirators
-            .Include(e=>e.Location)
-            .Include(e=>e.PartPlan)
-            .SingleOrDefault(e => e.Id == id);
-        if (person == default)
+        try
         {
-            throw new NullReferenceException("Запрашиваемый объект в базе не найден");
-        }
+            var person = _context.Conspirators
+                .Include(e=>e.Location)
+                .Include(e=>e.PartPlan)
+                .SingleOrDefault(e => e.Id == id);
+            if (person == default)
+            {
+                throw new NullReferenceException("Запрашиваемый объект в базе не найден");
+            }
 
-        var location = _context.Locations.Include(e=>e.Conspirators)
-            .Where(e=>e.Conspirators != default).SingleOrDefault(e => e.Conspirators.Contains(person));
+            var location = _context.Locations.Include(e=>e.Conspirators)
+                .Where(e=>e.Conspirators != default).SingleOrDefault(e => e.Conspirators.Contains(person));
 
-        Dictionary<int, int> dictLocations = new Dictionary<int, int>();
-        if (location != default)
-        {
-            dictLocations.Add(person.Id, location.Id);
-        }
+            Dictionary<int, int> dictLocations = new Dictionary<int, int>();
+            if (location != default)
+            {
+                dictLocations.Add(person.Id, location.Id);
+            }
 
-        Dictionary<int, int> dictPartsPlan = new Dictionary<int, int>();
-        if (person.PartPlan != default)
-        {
-            dictPartsPlan.Add(person.Id, person.PartPlan.Id);
+            Dictionary<int, int> dictPartsPlan = new Dictionary<int, int>();
+            if (person.PartPlan != default)
+            {
+                dictPartsPlan.Add(person.Id, person.PartPlan.Id);
+            }
+            var item = GetResource(_mapper.Map<ConspiratorDto>(person), dictLocations, dictPartsPlan); 
+            IEnumerable<dynamic> result = new[]
+            {
+                id,
+                item
+            };
+            return result;
         }
-        var item = GetResource(_mapper.Map<ConspiratorDto>(person), dictLocations, dictPartsPlan); 
-        IEnumerable<dynamic> result = new[]
+        catch (Exception e)
         {
-            id,
-            item
-        };
-        return result;
+            var error = e.ToErrorObject(_context);
+            return new[]
+            {
+                error.ErrorCode,
+                error.ErrorMessage,
+                error.ErrorCodeDb
+            };
+        }
     }
 
     private dynamic GetResource(ConspiratorDto conspiratorDto, Dictionary<int, int> locations, Dictionary<int, int> partsPlan)

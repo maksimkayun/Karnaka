@@ -28,4 +28,5 @@ public class KarnakaContext : DbContext
     public DbSet<Conspirator> Conspirators { get; set; }
     public DbSet<PartPlan> PartPlans { get; set; }
     public DbSet<Location> Locations { get; set; }
+    public DbSet<ErrorCode> ErrorCodes { get; set; }
 }
